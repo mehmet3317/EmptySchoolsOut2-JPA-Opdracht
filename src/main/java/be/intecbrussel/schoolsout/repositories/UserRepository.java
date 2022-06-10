@@ -3,34 +3,66 @@ package be.intecbrussel.schoolsout.repositories;
 import be.intecbrussel.schoolsout.data.Course;
 import be.intecbrussel.schoolsout.data.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
+import java.util.Queue;
 
 public class UserRepository {
 
     public User getOneById(String login){
-
-        return null;
+        EntityManager em = EMFactory.getEMF().createEntityManager();
+        return em.find(User.class, login);
     }
 
     public List<User> getAll(){
-        return null;
+
+        EntityManager em = EMFactory.getEMF().createEntityManager();
+        Query query = em.createQuery("Select v from User v");
+        return query.getResultList();
+
+    }
+
+    public List<User> getAllThatAreActive(){
+        EntityManager em = EMFactory.getEMF().createEntityManager();
+        Query query = em.createQuery("Select user from User user WHERE user.active = true ");
+        return query.getResultList();
+
+
     }
 
 
     public void createOne(User user){
+        EntityManager em = EMFactory.getEMF().createEntityManager();
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
 
     }
 
     public void updateOne(User user){
 
+        EntityManager em = EMFactory.getEMF().createEntityManager();
+        em.getTransaction().begin();
+        em.merge(user);
+        em.getTransaction().commit();
+
     }
 
     public void deleteOne(String login){
+        EntityManager em = EMFactory.getEMF().createEntityManager();
+
+        User user = em.find(User.class,login);
+
+        em.getTransaction().begin();
+        em.remove(user);
+        em.getTransaction().commit();
 
     }
 
     public List<User> getUsersByCourse(Course course){
-
-        return null;
+        EntityManager em = EMFactory.getEMF().createEntityManager();
+        Query query = em.createQuery("Select g from User g WHERE g.person = :person").setParameter("person", course.getGradesOfCourse());
+        return query.getResultList();
     }
 }

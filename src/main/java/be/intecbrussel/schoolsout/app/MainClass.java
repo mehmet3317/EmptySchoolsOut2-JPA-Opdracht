@@ -3,10 +3,14 @@ package be.intecbrussel.schoolsout.app;
 
 
 
+import be.intecbrussel.schoolsout.repositories.EMFactory;
 import be.intecbrussel.schoolsout.services.CourseService;
 import be.intecbrussel.schoolsout.services.GradeService;
 import be.intecbrussel.schoolsout.services.UserService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -18,8 +22,6 @@ public class MainClass {
 
     public static void main(String[] args) {
 
-
-
             while (continueThis){
                 getChoice();
 
@@ -27,17 +29,14 @@ public class MainClass {
 
                     switch (choiceOne){
                         case 1:choiceUsers();break;
-                        case 2:choiceUsers();break;
+                        case 2:choiceCourses();break;
                         case 3:choiceGrades();break;
                     }
-
                 }
 
                 choices();
 
             }
-
-
     }
 
     public static void getChoice(){
@@ -52,7 +51,6 @@ public class MainClass {
                 System.out.println("Invalid choice.");
             }
         }
-
     }
 
     private static void choiceUsers()  {
@@ -70,18 +68,15 @@ public class MainClass {
         }
 
             switch (choiceTwo){
-                case 1:userService.findAllUsers();break;//LEVEL 1
-                case 2:userService.findOneUserById();break;//LEVEL 1
-                case 3:userService.createUser();break;//LEVEL 2
-                case 4:userService.updateUser();break;//LEVEL 3
-                case 5:userService.deleteUser();break;//LEVEL 3
-                case 6:userService.showAllPeoplePerCourse();break;//LEVEL 4
+                case 1:userService.findAllUsers();break;//LEVEL 1           +
+                case 2:userService.findOneUserById();break;//LEVEL 1        +
+                case 3:userService.createUser();break;//LEVEL 2             +
+                case 4:userService.updateUser();break;//LEVEL 3             +
+                case 5:userService.deleteUser();break;//LEVEL 3             +
+                case 6:userService.showAllPeoplePerCourse();break;//LEVEL 4 +
             }
             System.out.println("We did a User thing!");
-
-
     }
-
     private static void choiceCourses()  {
         Scanner scanner = new Scanner(System.in);
         CourseService courseService = new CourseService();
@@ -97,16 +92,13 @@ public class MainClass {
         }
 
         switch (choiceTwo){
-            case 1:courseService.findAllCourses();break;//LEVEL 1
-            case 2:courseService.findOneCourseById();break;//LEVEL 1
-            case 3:courseService.createCourse();break;//LEVEL 1
-            case 4:courseService.updateCourse();break;//LEVEL 2
-            case 5:courseService.deleteCourse();break;//LEVEL 2
-
+            case 1:courseService.findAllCourses();break;//LEVEL 1     +
+            case 2:courseService.findOneCourseById();break;//LEVEL 1  +
+            case 3:courseService.createCourse();break;//LEVEL 1       +
+            case 4:courseService.updateCourse();break;//LEVEL 2       +
+            case 5:courseService.deleteCourse();break;//LEVEL 2       +
         }
         System.out.println("We did a Course thing!");
-
-
     }
 
     private static void choiceGrades()  {
@@ -125,11 +117,11 @@ public class MainClass {
         }
 
         switch (choiceTwo){
-            case 1:courseService.findAllGradesFromCourse();break;//LEVEL 2
-            case 2:gradeService.findAllGradesForUser();break;//LEVEL 3
-            case 3:gradeService.createGradeForUserOnCourse();break;//LEVEL 4
-            case 4:gradeService.updateGradeForUserOnCourse();break;//LEVEL 2
-            case 5:gradeService.deleteGradeForUserOnCourse();break;//LEVEL 1
+            case 1:courseService.findAllGradesFromCourse();break;//LEVEL 2     +
+            case 2:gradeService.findAllGradesForUser();break;//LEVEL 3         +
+            case 3:gradeService.createGradeForUserOnCourse();break;//LEVEL 4   +
+            case 4:gradeService.updateGradeForUserOnCourse();break;//LEVEL 2   +
+            case 5:gradeService.deleteGradeForUserOnCourse();break;//LEVEL 1   +
         }
         System.out.println("We did a Grade thing!");
 
